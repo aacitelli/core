@@ -1,24 +1,24 @@
-def main():
-    pass
+class Tokenizer: 
 
-# Returns (info about) current token; 
-# Repeated calls to getToken() return the same token 
-def getToken(): 
-    pass
+    def __init__(self, file):
+        self.tokens = []
+        self.file = file
 
-# Skips current token; next getToken() call will return new token 
-def skipToken():
-    pass 
+    # Returns (info about) current token; 
+    # Repeated calls to getToken() return the same token 
+    def getToken(self): 
+        pass
 
-# Returns the value of the current (integer) token 
-# Errors out if the current token is not an integer 
-def intVal():
-    pass
+    # Skips current token; next getToken() call will return new token 
+    def skipToken(self):
+        pass 
 
-# Returns the name (string) of the current (id) token 
-# Errors out if the current token is not an id 
-def idName(): 
-    pass 
+    # Returns the value of the current (integer) token 
+    # Errors out if the current token is not an integer 
+    def intVal(self):
+        pass
 
-if __name__ == "__main__":
-    main()
+    # Returns the name (string) of the current (id) token 
+    # Errors out if the current token is not an id 
+    def idName(self): 
+        pass =
