@@ -1,3 +1,6 @@
+# RegEx for checking identifier validity 
+import re 
+
 class Tokenizer:
 
     tokenToID = {
@@ -80,19 +83,20 @@ class Tokenizer:
 
         # If we start out not immediately on a token (due to stuff skipToken sets), we know we're at EOF
         if len(self.line) == 0:
-            # print()
+            # print("getToken: Returning EOF token.")
             return 33
 
-        # Loop until we get (1) End of line or (2) White space or (3) Newline character
+        # Loop until we get (1) End of line or (2) White space
         token = ""
         pos = 0
-        while pos < len(self.line) and self.line[pos] != " " and self.line[pos] != "\n":
+        while pos < len(self.line) and self.line[pos] != " ":
             token += self.line[pos]
             pos += 1
             #print("token {} from pos {}".format(token, pos))
 
         # If it's one of our vanilla special characters
         if token in self.tokenToID:
+            # print("getToken: Returning {} token.".format(token))
             return self.tokenToID[token]
 
         # Debug 
@@ -100,8 +104,22 @@ class Tokenizer:
 
         # Check if it's an integer
         if token.isdigit():
+            # print("getToken: Returning {} token.".format(token))
             return 31
-        return 32 # Identifier      
+
+        # Check if it's a valid identifier using RegEx 
+        '''
+        Seemed like a fun place to use RegEx. Learned a ton figuring this out. 
+        Walkthrough:
+        - ^$ = Wandates we match the entire string, not just subsets
+        - (?=.{0,8}$) = Lookahead expression that mandates length
+        - [A-Z][A-Z]*\d* = Mandates order and actual content 
+        '''
+        if re.search(r"^(?=.{0,8}$)[A-Z][A-Z]*\d*$", token) != None:
+            return 32
+
+        # Otherwise, error out (return the token we errored on; main knows to look for this)
+        return token  
 
     # Skips current token; next getToken() call will return new token
     # AKA moves our input such that the current beginning of the line is the next character
