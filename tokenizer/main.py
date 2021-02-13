@@ -13,12 +13,12 @@ def main(argv):
     # Loop and print result until we get to it returning an EOF character
     #print("calling getToken()")
     token = tokenizer.getToken()
-    error = type(token) is str
-    while token != 33 and not error:
+    error = (token == -1)
+    while token != 33 and token != -1:
         print("{}".format(token), end=" ")
         tokenizer.skipToken()
         token = tokenizer.getToken()
-        error = type(token) is str
+        error = (token == -1)
 
     if error:
         print("\nERROR: Invalid Token {}".format(token))
