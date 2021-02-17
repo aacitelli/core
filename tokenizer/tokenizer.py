@@ -1,6 +1,11 @@
 # RegEx for checking identifier validity 
 import re 
 
+# Project = Wednesday
+# 3231 Quiz = Tomorrow
+# 3801 HW = Fri
+# 3341 HW2 = Fri
+
 class Tokenizer:
 
     tokenToID = {
@@ -98,6 +103,13 @@ class Tokenizer:
 
                 # print("Detected in tokenToID.")
                 self.line_after_trim = self.line[pos:]
+
+                # If it's not at end of line, we have to check next character to make sure it is either a separator or a special character
+                if len(self.line_after_trim):
+                    if self.tokenToID[token + char] not in range(12, 30) and self.line_after_trim[0] != " ":
+                        print("ERROR: Invalid token!")
+                        return -1 
+
                 return self.tokenToID[token + char]
 
             # If we are about to add a special character:
@@ -105,7 +117,7 @@ class Tokenizer:
             # - If it's not a valid number or identifier, error out 
             if char in self.specialCharacters:
                 # print("Special character connected! Char: {}".format(char))
-                if token.isdigit():
+                if self.isValidNumber(token):
                     # print("It's a number!")
                     self.tokens.append((31, None, int(token)))
                     self.line_after_trim = self.line[pos - 1:]
@@ -125,7 +137,7 @@ class Tokenizer:
             # print("Token: {}".format(token))
 
         # If we get out without an error but without recognizing a character, test for identifier/number (i.e. end of line)
-        if token.isdigit():
+        if self.isValidNumber(token):
             self.tokens.append((31, None, int(token)))
             self.line_after_trim = self.line[pos:]
             return 31
@@ -177,4 +189,10 @@ class Tokenizer:
 
     # See file regex.md for an explanation of this 
     def isValidIdentifier(self, str):
-        return re.search(r"^(?=.{0,8}$)[A-Z][A-Z]*\d*$", str) != None
+        return re.search(r"^(?=.{1,8}$)[A-Z][A-Z]*\d*$", str) != None
+
+    # Valid numbers in our language must be eight or fewer digits
+    def isValidNumber(self, str):
+        if not str.isdigit(): 
+            return False 
+        return int(str) <= 99999999

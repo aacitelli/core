@@ -1,7 +1,6 @@
 import sys
 from tokenizer import Tokenizer
 
-
 def main(argv):
 
     # Open file and handle any errors
