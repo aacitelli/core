@@ -1,22 +1,22 @@
 import sys
-from tokenizer import Tokenizer
+import globals
 
 def main(argv):
 
     # Open file and handle any errors
     f = open(argv[0], "r")
 
-    # Initialize tokenizer and pass file object
-    tokenizer = Tokenizer(f)
+    # Init file used to track our globals 
+    globals.setup(f)
 
     # Loop and print result until we get to it returning an EOF character
     #print("calling getToken()")
-    token = tokenizer.getToken()
+    token = globals.tokenizer.getToken()
     error = (token == -1)
     while token != 33 and token != -1:
         print("{}".format(token), end=" ")
-        tokenizer.skipToken()
-        token = tokenizer.getToken()
+        globals.tokenizer.skipToken()
+        token = globals.tokenizer.getToken()
         error = (token == -1)
 
     if error:
