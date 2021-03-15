@@ -1,5 +1,6 @@
-from Op import Op 
-from CompOn import CompOp 
+import t
+import Op 
+import CompOp 
 
 class Comp():
 

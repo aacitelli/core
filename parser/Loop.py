@@ -1,5 +1,6 @@
-from Cond import Cond 
-from StmtSeq import StmtSeq 
+import t 
+import Cond 
+import StmtSeq
 
 class Loop():
 

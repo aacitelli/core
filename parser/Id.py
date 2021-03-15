@@ -1,5 +1,6 @@
-from Let import Let 
-from Int import Int 
+import t 
+import Let 
+import Int 
 
 class Id():
 

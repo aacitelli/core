@@ -1,4 +1,4 @@
-# No imports, purely terminals 
+import t
 
 class CompOp():
 

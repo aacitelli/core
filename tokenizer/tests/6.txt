@@ -1,0 +1,13 @@
+
+
+
+
+
+
+
+
+
+
+program
+ int X ;
+ begin X = 250000 ; write X ; end

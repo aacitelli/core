@@ -1,4 +1,5 @@
-from Comp import Comp 
+import t
+import Comp 
 
 class Cond():
 

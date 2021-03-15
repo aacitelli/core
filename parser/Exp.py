@@ -1,4 +1,5 @@
-from Fac import Fac
+import t 
+import Fac
 
 class Exp():
 

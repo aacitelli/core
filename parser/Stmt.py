@@ -1,9 +1,9 @@
-from Assign import Assign 
-from If import If 
-from Loop import Loop 
-from In import In 
-from Out import Out
-import globals
+import t 
+import Assign 
+import If 
+import Loop 
+import In 
+import Out 
 
 class Stmt():
 
@@ -12,6 +12,5 @@ class Stmt():
         pass
 
     def parseStmt():
-        tokNo = globals.tokenizer.getToken()
-        if tokNo == 
+        pass
     

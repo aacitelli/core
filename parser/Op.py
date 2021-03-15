@@ -1,6 +1,7 @@
-from Int import Int
-from Id import Id
-from Exp import Exp 
+import t 
+import Int 
+import Id 
+import Exp 
 
 class Op():
 

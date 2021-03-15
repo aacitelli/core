@@ -1,6 +1,6 @@
-from tokenizer.tokenizer import Tokenizer
-from Id import Id 
-from Exp import Exp 
+import t
+import Id 
+import Exp 
 
 class Assign():
 

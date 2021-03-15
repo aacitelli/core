@@ -1,4 +1,5 @@
-from Decl import Decl
+import t
+import Decl 
 
 class DeclSeq():
 
