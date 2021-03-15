@@ -13,14 +13,13 @@ t.tokenizer = CustomTokenizer.CustomTokenizer(tokens, numbers, ids)
 
 # Parse 
 program = Prog.Prog()
+program.parse()
 
 # Execute
+program.exec()
 
-# Print 
+# Print
+program.print() 
 
 # Exit 
-
-first_token = t.tokenizer.get_token()
-if first_token != 1:
-    print("First token must be program!")
-    exit(-1)
+exit(0)
