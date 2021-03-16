@@ -1,6 +1,6 @@
 import CustomTokenizer
 import t
-import Prog 
+import Prog
 
 # Initialize tokenizer instance; see Tokenizer.py for a better description of what this means 
 # tokens: A list of tokenized numbers corresponding to the program.
@@ -15,11 +15,11 @@ t.tokenizer = CustomTokenizer.CustomTokenizer(tokens, numbers, ids)
 program = Prog.Prog()
 program.parse()
 
-# Execute
-program.exec()
-
 # Print
 program.print() 
+
+# Execute
+program.exec()
 
 # Exit 
 exit(0)

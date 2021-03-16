@@ -33,6 +33,6 @@ class Decl():
         self.__id_list.exec()
 
     def print(self):
-        print("int", end=" ")
+        print("int ", end="")
         self.__id_list.print()
         print(";")
