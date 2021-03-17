@@ -7,8 +7,11 @@ class CustomTokenizer:
         self.__numbers = numbers 
         self.__ids = ids
         self.__pos = 0
+        self.__number_idx = 0
+        self.__tokens_idx = 0
 
     def skip_token(self):
+        if self.__tokens[i]
         self.__pos += 1
 
     def get_token(self):
@@ -18,6 +21,7 @@ class CustomTokenizer:
 
     # Counts what number "number" token we are from the start and returns it from corresponding array
     def get_num(self):
+        print("get_num called with pos ".format(self.__pos))
         if self.__tokens[self.__pos] != 31:
             print("get_num called on non-num!")
         i = 0
@@ -29,6 +33,7 @@ class CustomTokenizer:
 
     # Gets the number corresponding to the current token 
     def get_id(self):
+        print("get_id called with pos {}".format(self.__pos))
         if self.__tokens[self.__pos] != 32:
             print("get_id called on non-id!")
         i = 0

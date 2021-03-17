@@ -1,0 +1,2 @@
+## Notes
+1. I can't "guarantee" proper tokenizer functionality for anything except an input file that has spaces between the tokens. Specifically, I know that the sequence "&& || !=!" isn't tokenized properly. Otherwise, I think it works well, and it works on all the input files I've packaged, but for anything else you test with please put spaces between the tokens.

@@ -10,23 +10,29 @@ class IdList():
     def parse(self):
 
         # Id
-        
+        self.__id = Id.Id()
+        self.__id.parse()
 
         # If next is a comma, we are in second comma 
-        # `;` token 
+        # `,` token 
         tokNo = t.tokenizer.get_token()
-        t.tokenizer.skip_token()
-        if tokNo != 12:
-            print("Expected token {}, got token {}".format(4, tokNo))
-            return -1 
+        if tokNo == t.Tokens.COMMA.value:
+            t.tokenizer.skip_token()
+            self.__id_list = IdList()
+            self.__id_list.parse()
             
         # Successful error code 
         return 0 
 
     def exec(self):
-        self.__id_list.exec()
+        ids_to_print = [self.__id.exec(None)]
+        if self.__id_list != None:
+            ids_to_print.append(self.__id_list.exec())
+        return ids_to_print
 
-    def print(self):
-        print("int", end=" ")
-        self.__id_list.print()
-        print(";")
+    def print(self, indentation):
+        print(" " * indentation, end="")
+        self.__id.print(0)
+        if self.__id_list != None:
+            print(", ", end="")
+            self.__id_list.print(0)

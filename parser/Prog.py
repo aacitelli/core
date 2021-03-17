@@ -14,7 +14,7 @@ class Prog():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.PROGRAM.value:
-            print("Expected token {}, got token {}".format(t.Tokens.PROGRAM.value, tokNo))
+            print("Prog: Expected token {}, got token {}".format(t.Tokens.PROGRAM.value, tokNo))
             return -1 
 
         # DeclSeq
@@ -25,7 +25,7 @@ class Prog():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.BEGIN.value:
-            print("Expected token {}, got token {}".format(t.Tokens.BEGIN.value, tokNo))
+            print("Prog: Expected token {}, got token {}".format(t.Tokens.BEGIN.value, tokNo))
             return -1 
 
         # StmtSeq
@@ -36,7 +36,7 @@ class Prog():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.END.value:
-            print("Expected token {}, got token {}".format(t.Tokens.END.value, tokNo))
+            print("Prog: Expected token {}, got token {}".format(t.Tokens.END.value, tokNo))
             return -1 
 
         # Successful error code 
@@ -48,7 +48,7 @@ class Prog():
 
     def print(self):
         print("program")
-        self.__declseq.print()
+        self.__declseq.print(4)
         print("begin")
-        self.__stmtseq.print()
+        self.__stmtseq.print(4)
         print("end")

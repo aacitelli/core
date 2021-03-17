@@ -11,8 +11,8 @@ class Decl():
         # `int` token 
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
-        if tokNo != 4:
-            print("Expected token {}, got token {}".format(4, tokNo))
+        if tokNo != t.Tokens.INT.value:
+            print("Decl: Expected token {}, got token {}".format(t.Tokens.INT.value, tokNo))
             return -1 
 
         # IdList
@@ -23,7 +23,7 @@ class Decl():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != 12:
-            print("Expected token {}, got token {}".format(4, tokNo))
+            print("Decl: Expected token {}, got token {}".format(12, tokNo))
             return -1 
             
         # Successful error code 
@@ -32,7 +32,8 @@ class Decl():
     def exec(self):
         self.__id_list.exec()
 
-    def print(self):
+    def print(self, indentation):
+        print(" " * indentation, end="")
         print("int ", end="")
-        self.__id_list.print()
+        self.__id_list.print(0)
         print(";")

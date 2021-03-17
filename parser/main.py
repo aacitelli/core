@@ -1,25 +1,35 @@
-import CustomTokenizer
-import t
+import Tokenizer
+import t # file we store globals in (i.e. the tokenizer and various enums)
 import Prog
+import sys 
 
-# Initialize tokenizer instance; see Tokenizer.py for a better description of what this means 
-# tokens: A list of tokenized numbers corresponding to the program.
-# numbers: A list of numbers; note that len(numbers) == # of "31" Tokens 
-# ids: A list of ids; note that len(ids) == # of "32" Tokens 
-tokens = [ 1, 4, 32, 12, 2, 32, 14, 31, 12, 11, 32, 12, 3, 33 ]
-numbers = [ 25 ]
-ids = [ "X", "X", "X" ]
-t.tokenizer = CustomTokenizer.CustomTokenizer(tokens, numbers, ids)
+def main(argv):
 
-# Parse 
-program = Prog.Prog()
-program.parse()
+    # Open file and handle any errors
+    f = open(argv[0], "r")
 
-# Print
-program.print() 
+    # Init file used to track our globals 
+    t.tokenizer = Tokenizer.Tokenizer(f)
 
-# Execute
-program.exec()
+    # Init top-level object
+    program = Prog.Prog()
 
-# Exit 
-exit(0)
+    # Form parse tree, which recursively calls parse() on each nonterminal
+    program.parse()
+
+    # Recursively print parse tree out
+    print("\nPretty Printed: ")
+    program.print() 
+
+    # Recursively execute parse tree 
+    print("\nProgram Output: ")
+    program.exec()
+
+    # Close file
+    f.close()
+
+    # Exit 
+    exit(0)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

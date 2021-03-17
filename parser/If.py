@@ -16,7 +16,7 @@ class If():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.tokenizer.IF.value:
-            print("Expected token {}, got token {}".format(t.tokenizer.IF.value, tokNo))
+            print("If: Expected token {}, got token {}".format(t.tokenizer.IF.value, tokNo))
             return -1 
 
         # Parse Condition
@@ -27,7 +27,7 @@ class If():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.tokenizer.THEN.value:
-            print("Expected token {}, got token {}".format(t.tokenizer.THEN.value, tokNo))
+            print("If: Expected token {}, got token {}".format(t.tokenizer.THEN.value, tokNo))
             return -1 
 
         # `stmtseq` token 
@@ -43,7 +43,7 @@ class If():
 
         # Otherwise, we're at an else 
         if tokNo != t.tokenizer.ELSE.value:
-            print("Expected token {}, got token {}".format(t.tokenizer.ELSE.value, tokNo))
+            print("If: Expected token {}, got token {}".format(t.tokenizer.ELSE.value, tokNo))
             return -1
 
         # `stmtseq` token 
@@ -55,7 +55,7 @@ class If():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.tokenizer.END.value:
-            print("Expected token {}, got token {}".format(t.tokenizer.END.value, tokNo))
+            print("If: Expected token {}, got token {}".format(t.tokenizer.END.value, tokNo))
             return -1 
 
     def exec(self):
@@ -66,5 +66,13 @@ class If():
         else:
             self.__ss2.exec()        
 
-    def print(self):
-        pass 
+    def print(self, indentation):
+        print(" " * indentation, end="")
+        print("if ")
+        self.__c.print(indentation + 4)
+        print(" then ")
+        self.__ss1.print(indentation + 4)
+        if self.__alternative == 2:
+            print(" else ")
+            self.__ss2.print(indentation + 4)
+        print(" end")

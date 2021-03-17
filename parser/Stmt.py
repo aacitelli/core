@@ -20,28 +20,34 @@ class Stmt():
         # We use one-token lookahead to determine which alternative to use 
 
         # get_token == identifier
-        if t.tokenizer.get_token() == 32:
+        tokNo = t.tokenizer.get_token()
+        if tokNo == t.Tokens.IDENTIFIER.value:
             self.__assign = Assign.Assign()
+            self.__assign.parse()
             self.__alternative = 1
         
         # get_token == "if"
-        if t.tokenizer.get_token() == t.Tokens.IF.value:
-            self.__assign = If.If()
+        elif tokNo == t.Tokens.IF.value:
+            self.__if = If.If()
+            self.__if.parse()
             self.__alternative = 2
 
         # get_token == "while"
-        if t.tokenizer.get_token() == t.Tokens.WHILE.value:
-            self.__assign = Loop.Loop()
+        elif tokNo == t.Tokens.WHILE.value:
+            self.__while = Loop.Loop()
+            self.__while.parse()
             self.__alternative = 3
 
         # get_token == "read"
-        if t.tokenizer.get_token() == t.Tokens.READ.value:
-            self.__assign = In.In()
+        elif tokNo == t.Tokens.READ.value:
+            self.__read = In.In()
+            self.__read.parse()
             self.__alternative = 4
 
         # get_token == "write"
-        if t.tokenizer.get_token() == t.Tokens.WRITE.value:
-            self.__assign = Out.Out()
+        elif tokNo == t.Tokens.WRITE.value:
+            self.__out = Out.Out()
+            self.__out.parse()
             self.__alternative = 5
         
         # Successful error code
@@ -59,15 +65,16 @@ class Stmt():
         if self.__alternative == 5:
             self.__out.exec()
 
-    def print(self):
+    def print(self, indentation):
+        print(" " * indentation, end="")
         if self.__alternative == 1:
-            self.__assign.print()
+            self.__assign.print(0)
         if self.__alternative == 2:
-            self.__if.print()
+            self.__if.print(0)
         if self.__alternative == 3:
-            self.__loop.print()
+            self.__loop.print(0)
         if self.__alternative == 4:
-            self.__in.print()
+            self.__in.print(0)
         if self.__alternative == 5:
-            self.__out.print()
+            self.__out.print(0)
     

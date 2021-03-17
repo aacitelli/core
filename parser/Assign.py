@@ -18,7 +18,7 @@ class Assign():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.EQUALS.value:
-            print("Expected token {}, got token {}".format(t.Tokens.EQUALS.value, tokNo))
+            print("Assign: Expected token {}, got token {}".format(t.Tokens.EQUALS.value, tokNo))
             return -1 
 
         # Exp
@@ -29,18 +29,19 @@ class Assign():
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.SEMICOLON.value:
-            print("Expected token {}, got token {}".format(t.Tokens.SEMICOLON.value, tokNo))
+            print("Assign: Expected token {}, got token {}".format(t.Tokens.SEMICOLON.value, tokNo))
             return -1
             
         # Successful error code 
         return 0 
 
     def exec(self):
-        self.__id.exec()
-        self.__exp.exec()
+        exp_val = self.__exp.exec()
+        self.__id.exec(exp_val)
 
-    def print(self):
-        self.__id.print()
+    def print(self, indentation):
+        print(" " * indentation, end="")
+        self.__id.print(0)
         print(" = ", end="")
-        self.__exp.print()
+        self.__exp.print(0)
         print(";")

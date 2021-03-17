@@ -15,7 +15,7 @@ class StmtSeq():
 
         # Use one-token lookahead to determine if are at the second alternative 
         tokNo = t.tokenizer.get_token()
-        if tokNo == 32 or tokNo == t.Tokens.IF.value or tokNo == t.Tokens.WHILE.value or \
+        if tokNo == t.Tokens.IDENTIFIER.value or tokNo == t.Tokens.IF.value or tokNo == t.Tokens.WHILE.value or \
             tokNo == t.Tokens.READ.value or tokNo == t.Tokens.WRITE.value:
             self.__stmt_seq = StmtSeq()
             self.__stmt_seq.parse()
@@ -28,7 +28,8 @@ class StmtSeq():
         if self.__stmt_seq != None:
             self.__stmt_seq.exec()
 
-    def print(self):
-        self.__stmt.print()
+    def print(self, indentation):
+        print(" " * indentation, end="")
+        self.__stmt.print(0)
         if self.__stmt_seq != None:
-            self.__stmt_seq.print()
+            self.__stmt_seq.print(indentation)

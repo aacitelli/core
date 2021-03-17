@@ -16,7 +16,7 @@ class DeclSeq():
         # List of Decl, if one-token lookahead shows us there is another decl 
         # NOTE: The above decl will call skip_token, so we don't have to worry about infinite recursion here 
         if t.tokenizer.get_token() == t.Tokens.INT.value:
-            self.__decl_seq = DeclSeq.DeclSeq()
+            self.__decl_seq = DeclSeq()
             self.__decl_seq.parse()
         
         # Successful error code
@@ -27,7 +27,8 @@ class DeclSeq():
         if self.__decl_seq != None:
             self.__decl_seq.exec()
 
-    def print(self):
-        self.__decl.print()
+    def print(self, indentation):
+        print(" " * indentation, end="")
+        self.__decl.print(0)
         if self.__decl_seq != None:
-            self.__decl_seq.print()
+            self.__decl_seq.print(0)

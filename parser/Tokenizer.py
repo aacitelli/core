@@ -1,11 +1,6 @@
 # RegEx for checking identifier validity 
 import re 
 
-# Project = Wednesday
-# 3231 Quiz = Tomorrow
-# 3801 HW = Fri
-# 3341 HW2 = Fri
-
 class Tokenizer:
 
     tokenToID = {
@@ -49,7 +44,7 @@ class Tokenizer:
     # 1st Value = The token value (i.e. 1-34)
     # 2nd Value = The string value of the token (filled if identifier)
     # 3rd Value = The integer value of the token (filled if integer)
-    tokens = [] 
+    most_recent_valid_token = None
 
     # Holds the value of line() after our next token 
     # We update this at the end of every getToken() call, and call getToken() in skipToken(), 
@@ -60,10 +55,13 @@ class Tokenizer:
         self.f = f
         self.line = f.readline().strip()
 
+    def set_recent_token(self, val):
+        self.most_recent_valid_token = val
+
     # Returns (info about) current token;
     # Repeated calls to getToken() return the same token
     # Precondition: Excepting whitespace at the beginning, first character is the first character of our next token.
-    def getToken(self):
+    def get_token(self):
 
         # If we start out not immediately on a token (due to stuff skipToken sets), we know we're at EOF
         if not self.line:
@@ -119,12 +117,12 @@ class Tokenizer:
                 # print("Special character connected! Char: {}".format(char))
                 if self.isValidNumber(token):
                     # print("It's a number!")
-                    self.tokens.append((31, None, int(token)))
+                    self.set_recent_token(int(token))
                     self.line_after_trim = self.line[pos - 1:]
                     return 31
                 if self.isValidIdentifier(token): 
                     # print("{} is an identifier!".format(token))
-                    self.tokens.append((32, token, None))
+                    self.set_recent_token(token)
                     self.line_after_trim = self.line[pos - 1:]
                     return 32
                 else: 
@@ -138,11 +136,11 @@ class Tokenizer:
 
         # If we get out without an error but without recognizing a character, test for identifier/number (i.e. end of line)
         if self.isValidNumber(token):
-            self.tokens.append((31, None, int(token)))
+            self.set_recent_token(int(token))
             self.line_after_trim = self.line[pos:]
             return 31
         if self.isValidIdentifier(token): 
-            self.tokens.append((32, token, None))
+            self.set_recent_token(token)
             self.line_after_trim = self.line[pos:]
             return 32
 
@@ -154,9 +152,9 @@ class Tokenizer:
 
     # Skips current token; next getToken() call will return new token
     # AKA moves our input such that the current beginning of the line is the next character
-    def skipToken(self):
+    def skip_token(self):
         # print("Line pre-skipToken(): {}".format(self.line))
-        self.getToken() # Don't care about the return code, we just need it to update self.line_after_trim 
+        self.get_token() # Don't care about the return code, we just need it to update self.line_after_trim 
         # print("line_after_trim: {}".format(self.line_after_trim))
         self.line_after_trim.strip()
 
@@ -171,21 +169,20 @@ class Tokenizer:
             self.line = self.line_after_trim
         # print("Line post-skipToken(): {}".format(self.line))
 
-    # Returns the value of the current (integer) token
-    # Errors out if the current token is not an integer
-    def intVal(self, str):
-        if self.tokens[len(tokens) - 1][2] is None:
-            print("ERROR: intVal called on non-integer value!")
-            return "ERROR"
-        return tokens[len(tokens) - 1][2]
+    # Returns actual value of the number currently at get_token
+    # NOTE: How I manage self.tokens is technically a memory leak but in context to our usage it will never come even close to being a problem
+    def get_int(self):
+        if self.get_token() != 31:
+            print("ERROR: get_int called on non-integer value!")
+            return -1
+        return self.most_recent_valid_token
 
-    # Returns the name (string) of the current (id) token
-    # Errors out if the current token is not an id
-    def idName(self, str):
-        if self.tokens[len(tokens) - 1][1] is None:
-            print("ERROR: intVal called on non-integer value!")
-            return "ERROR"
-        return tokens[len(tokens) - 1][1]
+    # Returns actual string of the identifier currently at get_token 
+    def get_id(self):
+        if self.get_token() != 32:
+            print("ERROR: get_id called on non-id value!")
+            return -1
+        return self.most_recent_valid_token
 
     # See file regex.md for an explanation of this 
     def isValidIdentifier(self, str):
