@@ -24,11 +24,12 @@ class IdList():
         # Successful error code 
         return 0 
 
-    def exec(self):
-        ids_to_print = [self.__id.exec(None)]
+    def exec(self, declare):
+        output = []
+        output.append(self.__id.exec(declare, None))
         if self.__id_list != None:
-            ids_to_print.append(self.__id_list.exec())
-        return ids_to_print
+            output.append(self.__id_list.exec(declare, None))
+        return output
 
     def print(self, indentation):
         print(" " * indentation, end="")
@@ -36,3 +37,9 @@ class IdList():
         if self.__id_list != None:
             print(", ", end="")
             self.__id_list.print(0)
+
+    def print_values(self, indentation):
+        print(" " * indentation, end="")
+        self.__id.print_value(0)
+        if self.__id_list is not None:
+            self.__id_list.print_values(0)

@@ -37,7 +37,7 @@ class Assign():
 
     def exec(self):
         exp_val = self.__exp.exec()
-        self.__id.exec(exp_val)
+        self.__id.exec(None, exp_val) # Pass in Assign flag 
 
     def print(self, indentation):
         print(" " * indentation, end="")

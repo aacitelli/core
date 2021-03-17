@@ -22,15 +22,15 @@ class Decl():
         # `;` token 
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
-        if tokNo != 12:
-            print("Decl: Expected token {}, got token {}".format(12, tokNo))
+        if tokNo != t.Tokens.SEMICOLON.value:
+            print("Decl: Expected token {}, got token {}".format(t.Tokens.SEMICOLON.value, tokNo))
             return -1 
             
         # Successful error code 
         return 0 
 
     def exec(self):
-        self.__id_list.exec()
+        self.__id_list.exec(True) # Pass with "decl" flag 
 
     def print(self, indentation):
         print(" " * indentation, end="")

@@ -27,8 +27,7 @@ class Out():
             return -1 
 
     def exec(self):
-        for id_char in self.__id_list.exec():
-            print(id_char)
+        self.__id_list.print_values(0) # Special print function that prints values instead of ids 
 
     def print(self, indentation):
         print(" " * indentation, end="")
