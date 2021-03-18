@@ -1,8 +1,8 @@
-import t 
-import Id 
+import t
+import Id
+
 
 class IdList():
-
     def __init__(self):
         self.__id = None
         self.__id_list = None
@@ -13,16 +13,16 @@ class IdList():
         self.__id = Id.Id()
         self.__id.parse()
 
-        # If next is a comma, we are in second comma 
-        # `,` token 
+        # If next is a comma, we are in second comma
+        # `,` token
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.COMMA.value:
             t.tokenizer.skip_token()
             self.__id_list = IdList()
             self.__id_list.parse()
-            
-        # Successful error code 
-        return 0 
+
+        # Successful error code
+        return 0
 
     def exec(self, declare):
         output = []

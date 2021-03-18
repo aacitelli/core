@@ -1,23 +1,23 @@
-import t 
-import Assign 
-import If 
-import Loop 
-import In 
+import t
+import Assign
+import If
+import Loop
+import In
 import Out
 
-class Stmt():
 
+class Stmt():
     def __init__(self):
-        self.__assign = None 
-        self.__if = None 
-        self.__loop = None 
-        self.__in = None 
+        self.__assign = None
+        self.__if = None
+        self.__loop = None
+        self.__in = None
         self.__out = None
-        self.__alternative = None 
+        self.__alternative = None
 
     def parse(self):
 
-        # We use one-token lookahead to determine which alternative to use 
+        # We use one-token lookahead to determine which alternative to use
 
         # get_token == identifier
         tokNo = t.tokenizer.get_token()
@@ -25,7 +25,7 @@ class Stmt():
             self.__assign = Assign.Assign()
             self.__assign.parse()
             self.__alternative = 1
-        
+
         # get_token == "if"
         elif tokNo == t.Tokens.IF.value:
             self.__if = If.If()
@@ -49,9 +49,9 @@ class Stmt():
             self.__out = Out.Out()
             self.__out.parse()
             self.__alternative = 5
-        
+
         # Successful error code
-        return 0  
+        return 0
 
     def exec(self):
         if self.__alternative == 1:
@@ -77,4 +77,3 @@ class Stmt():
             self.__in.print(0)
         if self.__alternative == 5:
             self.__out.print(0)
-    

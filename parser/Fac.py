@@ -1,16 +1,16 @@
-import t 
-import Op  
+import t
+import Op
+
 
 class Fac():
-
     def __init__(self):
-        self.__op = None 
+        self.__op = None
         self.__fac = None
         self.__alternative = None
 
     def parse(self):
 
-        # Op 
+        # Op
         self.__op = Op.Op()
         self.__op.parse()
 
@@ -23,9 +23,9 @@ class Fac():
             self.__alternative = 2
         else:
             self.__alternative = 1
-        
+
         # Successful error code
-        return 0  
+        return 0
 
     def exec(self):
         if self.__alternative == 1:

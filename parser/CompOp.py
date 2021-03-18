@@ -1,13 +1,13 @@
 import t
 
-class CompOp():
 
+class CompOp():
     def __init__(self):
         self.__alternative = None
 
     def parse(self):
-        
-        # Get whatever token it is 
+
+        # Get whatever token it is
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
 
@@ -25,10 +25,10 @@ class CompOp():
             self.__alternative = 6
         else:
             print("CompOp: Invalid Token {}".format(tokNo))
-            return -1 
-            
-        # Successful error code 
-        return 0 
+            return -1
+
+        # Successful error code
+        return 0
 
     def exec(self):
         return self.__alternative

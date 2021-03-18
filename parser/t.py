@@ -1,6 +1,8 @@
 tokenizer = None
 
-from enum import Enum 
+from enum import Enum
+
+
 class Tokens(Enum):
     PROGRAM = 1
     BEGIN = 2
@@ -9,7 +11,7 @@ class Tokens(Enum):
     IF = 5
     THEN = 6
     ELSE = 7
-    WHILE = 8 
+    WHILE = 8
     LOOP = 9
     READ = 10
     WRITE = 11

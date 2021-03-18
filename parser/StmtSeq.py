@@ -1,10 +1,10 @@
-import t 
-import Stmt 
+import t
+import Stmt
+
 
 class StmtSeq():
-
     def __init__(self):
-        self.__stmt = None 
+        self.__stmt = None
         self.__stmt_seq = None
 
     def parse(self):
@@ -13,13 +13,13 @@ class StmtSeq():
         self.__stmt = Stmt.Stmt()
         self.__stmt.parse()
 
-        # Use one-token lookahead to determine if are at the second alternative 
+        # Use one-token lookahead to determine if are at the second alternative
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.IDENTIFIER.value or tokNo == t.Tokens.IF.value or tokNo == t.Tokens.WHILE.value or \
             tokNo == t.Tokens.READ.value or tokNo == t.Tokens.WRITE.value:
             self.__stmt_seq = StmtSeq()
             self.__stmt_seq.parse()
-        
+
         # Successful error code
         return 0
 

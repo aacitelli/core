@@ -1,5 +1,6 @@
-# RegEx for checking identifier validity 
-import re 
+# RegEx for checking identifier validity
+import re
+
 
 class Tokenizer:
 
@@ -37,8 +38,10 @@ class Tokenizer:
     }
 
     # Used to compare if a given character can start off our chain; so, we truncate anything that's two long to just be the first characters and eliminate duplicates
-    specialCharacters = { ";", ",", "=", "!", "[", "]", "&", "|", "(", ")", 
-        "+", "-", "*", "<", ">" } 
+    specialCharacters = {
+        ";", ",", "=", "!", "[", "]", "&", "|", "(", ")", "+", "-", "*", "<",
+        ">"
+    }
 
     # List of 3-tuples such that:
     # 1st Value = The token value (i.e. 1-34)
@@ -46,9 +49,9 @@ class Tokenizer:
     # 3rd Value = The integer value of the token (filled if integer)
     most_recent_valid_token = None
 
-    # Holds the value of line() after our next token 
-    # We update this at the end of every getToken() call, and call getToken() in skipToken(), 
-    #   so that all we have to do in skipToken() is simply read in a new line if it's empty or set our old line equal to this new line 
+    # Holds the value of line() after our next token
+    # We update this at the end of every getToken() call, and call getToken() in skipToken(),
+    #   so that all we have to do in skipToken() is simply read in a new line if it's empty or set our old line equal to this new line
     line_after_trim = ""
 
     def __init__(self, f):
@@ -85,17 +88,21 @@ class Tokenizer:
             # print("token + char: ".format((token + char)))
             if token + char in self.tokenToID:
 
-                # Check to see if we can be greedier 
-                if token + char == "!" and pos < len(self.line) and self.line[pos] == "=":
+                # Check to see if we can be greedier
+                if token + char == "!" and pos < len(
+                        self.line) and self.line[pos] == "=":
                     self.line_after_trim = self.line[pos + 1:]
                     return 25
-                if token + char == "=" and pos < len(self.line) and self.line[pos] == "=":
+                if token + char == "=" and pos < len(
+                        self.line) and self.line[pos] == "=":
                     self.line_after_trim = self.line[pos + 1:]
                     return 26
-                if token + char == "<" and pos < len(self.line) and self.line[pos] == "=":
+                if token + char == "<" and pos < len(
+                        self.line) and self.line[pos] == "=":
                     self.line_after_trim = self.line[pos + 1:]
                     return 26
-                if token + char == ">" and pos < len(self.line) and self.line[pos] == "=":
+                if token + char == ">" and pos < len(
+                        self.line) and self.line[pos] == "=":
                     self.line_after_trim = self.line[pos + 1:]
                     return 26
 
@@ -104,15 +111,16 @@ class Tokenizer:
 
                 # If it's not at end of line, we have to check next character to make sure it is either a separator or a special character
                 if len(self.line_after_trim):
-                    if self.tokenToID[token + char] not in range(12, 30) and self.line_after_trim[0] != " ":
+                    if self.tokenToID[token + char] not in range(
+                            12, 30) and self.line_after_trim[0] != " ":
                         print("ERROR: Invalid token!")
-                        return -1 
+                        return -1
 
                 return self.tokenToID[token + char]
 
             # If we are about to add a special character:
             # - If it's a valid number or identifier, split it there
-            # - If it's not a valid number or identifier, error out 
+            # - If it's not a valid number or identifier, error out
             if char in self.specialCharacters:
                 # print("Special character connected! Char: {}".format(char))
                 if self.isValidNumber(token):
@@ -120,16 +128,18 @@ class Tokenizer:
                     self.set_recent_token(int(token))
                     self.line_after_trim = self.line[pos - 1:]
                     return 31
-                if self.isValidIdentifier(token): 
+                if self.isValidIdentifier(token):
                     # print("{} is an identifier!".format(token))
                     self.set_recent_token(token)
                     self.line_after_trim = self.line[pos - 1:]
                     return 32
-                else: 
-                    print("\nERROR: Special character without prior whitespace not preceded by a number or identifier!")
+                else:
+                    print(
+                        "\nERROR: Special character without prior whitespace not preceded by a number or identifier!"
+                    )
                     return -1
 
-            # Add on the new one 
+            # Add on the new one
             token += char
             # print("token: {}".format(token))
             # print("Token: {}".format(token))
@@ -139,22 +149,23 @@ class Tokenizer:
             self.set_recent_token(int(token))
             self.line_after_trim = self.line[pos:]
             return 31
-        if self.isValidIdentifier(token): 
+        if self.isValidIdentifier(token):
             self.set_recent_token(token)
             self.line_after_trim = self.line[pos:]
             return 32
 
         print("\n114: ERROR: Invalid token \"{}\"".format(token))
-        return -1 
-            
+        return -1
+
         # Otherwise, error out (return the string token we errored on; main knows to look for this)
-        # return token  
+        # return token
 
     # Skips current token; next getToken() call will return new token
     # AKA moves our input such that the current beginning of the line is the next character
     def skip_token(self):
         # print("Line pre-skipToken(): {}".format(self.line))
-        self.get_token() # Don't care about the return code, we just need it to update self.line_after_trim 
+        self.get_token(
+        )  # Don't care about the return code, we just need it to update self.line_after_trim
         # print("line_after_trim: {}".format(self.line_after_trim))
         self.line_after_trim.strip()
 
@@ -177,19 +188,19 @@ class Tokenizer:
             return -1
         return self.most_recent_valid_token
 
-    # Returns actual string of the identifier currently at get_token 
+    # Returns actual string of the identifier currently at get_token
     def get_id(self):
         if self.get_token() != 32:
             print("ERROR: get_id called on non-id value!")
             return -1
         return self.most_recent_valid_token
 
-    # See file regex.md for an explanation of this 
+    # See file regex.md for an explanation of this
     def isValidIdentifier(self, str):
         return re.search(r"^(?=.{1,8}$)[A-Z][A-Z]*\d*$", str) != None
 
     # Valid numbers in our language must be eight or fewer digits
     def isValidNumber(self, str):
-        if not str.isdigit(): 
-            return False 
+        if not str.isdigit():
+            return False
         return int(str) <= 99999999
