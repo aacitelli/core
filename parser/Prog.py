@@ -17,6 +17,7 @@ class Prog():
             print("Prog: Expected token {}, got token {}".format(
                 t.Tokens.PROGRAM.value, tokNo))
             return -1
+        print("Prog: Consumed `program` token.")
 
         # DeclSeq
         self.__declseq = DeclSeq.DeclSeq()
@@ -29,6 +30,7 @@ class Prog():
             print("Prog: Expected token {}, got token {}".format(
                 t.Tokens.BEGIN.value, tokNo))
             return -1
+        print("Prog: Consumed `begin` token.")
 
         # StmtSeq
         self.__stmtseq = StmtSeq.StmtSeq()
@@ -41,6 +43,7 @@ class Prog():
             print("Prog: Expected token {}, got token {}".format(
                 t.Tokens.END.value, tokNo))
             return -1
+        print("Prog: Consumed `end` token.")
 
         # Successful error code
         return 0

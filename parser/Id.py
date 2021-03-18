@@ -24,6 +24,7 @@ class Id():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.IDENTIFIER.value, tokNo))
             return -1
+        print("Id: Consumed identifier token.")
 
         # Grab the current id from the tokenizer (we need the actual id name, not just the numeric token)
         identifier = t.tokenizer.get_id()

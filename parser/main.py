@@ -16,6 +16,7 @@ def main(argv):
     program = Prog.Prog()
 
     # Form parse tree, which recursively calls parse() on each nonterminal
+    print("\nparse() output: ")
     program.parse()
 
     # Recursively print parse tree out

@@ -18,6 +18,7 @@ class IdList():
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.COMMA.value:
             t.tokenizer.skip_token()
+            print("IdList: Consumed `,` token.")
             self.__id_list = IdList()
             self.__id_list.parse()
 

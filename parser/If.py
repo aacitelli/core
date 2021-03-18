@@ -19,6 +19,7 @@ class If():
             print("If: Expected token {}, got token {}".format(
                 t.tokenizer.IF.value, tokNo))
             return -1
+        print("IF: Consumed `if` token.")
 
         # Parse Condition
         self.__c = Cond.Cond()
@@ -31,6 +32,7 @@ class If():
             print("If: Expected token {}, got token {}".format(
                 t.tokenizer.THEN.value, tokNo))
             return -1
+        print("IF: Consumed `then` token.")
 
         # `stmtseq` token
         self.__ss1 = StmtSeq.StmtSeq()
@@ -48,6 +50,7 @@ class If():
             print("If: Expected token {}, got token {}".format(
                 t.tokenizer.ELSE.value, tokNo))
             return -1
+        print("IF: Consumed `else` token.")
 
         # `stmtseq` token
         self.__alternative = 2
@@ -61,6 +64,7 @@ class If():
             print("If: Expected token {}, got token {}".format(
                 t.tokenizer.END.value, tokNo))
             return -1
+        print("IF: Consumed `end` token.")
 
     def exec(self):
         if self.__c.is_true:

@@ -29,6 +29,7 @@ class Op():
             self.__alternative = 3
         else:
             print("Op: Invalid Next Token {}!".format(tokNo))
+            exit(-1)
             return -1
 
         # Successful error code

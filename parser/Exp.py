@@ -17,10 +17,14 @@ class Exp():
         # Use one-token lookahead to decide which production we used
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.PLUS.value:
+            t.tokenizer.skip_token()
+            print("Exp: Consumed `+` token.")
             self.__exp = Exp()
             self.__exp.parse()
             self.__alternative = 2
         elif tokNo == t.Tokens.MINUS.value:
+            t.tokenizer.skip_token()
+            print("Exp: Consumed `-` token.")
             self.__exp = Exp()
             self.__exp.parse()
             self.__alternative = 3

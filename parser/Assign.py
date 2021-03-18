@@ -21,6 +21,7 @@ class Assign():
             print("Assign: Expected token {}, got token {}".format(
                 t.Tokens.EQUALS.value, tokNo))
             return -1
+        print("Assign: Consumed `=` token.")
 
         # Exp
         self.__exp = Exp.Exp()
@@ -33,6 +34,7 @@ class Assign():
             print("Assign: Expected token {}, got token {}".format(
                 t.Tokens.SEMICOLON.value, tokNo))
             return -1
+        print("Assign: Consumed `;` token.")
 
         # Successful error code
         return 0

@@ -15,6 +15,7 @@ class Decl():
             print("Decl: Expected token {}, got token {}".format(
                 t.Tokens.INT.value, tokNo))
             return -1
+        print("Decl: Consumed `int` token.")
 
         # IdList
         self.__id_list = IdList.IdList()
@@ -27,6 +28,7 @@ class Decl():
             print("Decl: Expected token {}, got token {}".format(
                 t.Tokens.SEMICOLON.value, tokNo))
             return -1
+        print("Decl: Consumed `;` token.")
 
         # Successful error code
         return 0

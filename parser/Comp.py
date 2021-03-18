@@ -22,6 +22,7 @@ class Comp():
             print("Comp: Expected token {}, got token {}".format(
                 t.Tokens.OPEN_PAREN.value, tokNo))
             return -1
+        print("Comp: Consumed `(` token.")
 
         # Op1
         self.__op1 = Op.Op()
@@ -42,6 +43,7 @@ class Comp():
             print("Comp: Expected token {}, got token {}".format(
                 t.Tokens.CLOSED_PAREN.value, tokNo))
             return -1
+        print("Comp: Consumed `)` token.")
 
         # Successful error code
         return 0

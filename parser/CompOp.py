@@ -10,6 +10,7 @@ class CompOp():
         # Get whatever token it is
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
+        print("Comp: Consumed token no {}.".format(tokNo))
 
         if tokNo == t.Tokens.NOT_EQUALS.value:
             self.__alternative = 1

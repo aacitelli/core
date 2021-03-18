@@ -18,6 +18,7 @@ class Fac():
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.STAR.value:
             t.tokenizer.skip_token()
+            print("Fac: Consumed `*` token.")
             self.__fac = Fac()
             self.__fac.parse()
             self.__alternative = 2

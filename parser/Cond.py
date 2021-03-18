@@ -25,6 +25,7 @@ class Cond():
             self.__alternative = 2
         elif tokNo == t.Tokens.OPEN_BRACKET.value:
             t.tokenizer.skip_token()  # Consume open bracket
+            print("Comd: Consumed `[` token.")
             self.__cond1 = Cond()
             self.__cond1.parse()
             tokNo = t.tokenizer.get_token()
@@ -46,6 +47,7 @@ class Cond():
                 print("Cond: Expected token {}, got token {}".format(
                     t.Tokens.CLOSED_BRACKET.value, tokNo))
                 return -1
+            print("Cond: Consumed `]` token.")
         else:
             print("Cond: No productions are valid!")
             return -1

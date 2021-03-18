@@ -15,6 +15,7 @@ class Out():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.WRITE.value, tokNo))
             return -1
+        print("Out: Consumed `write` token.")
 
         # IdList
         self.__id_list = IdList.IdList()
@@ -27,6 +28,7 @@ class Out():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.SEMICOLON.value, tokNo))
             return -1
+        print("Out: Consumed `;` token.")
 
     def exec(self):
         self.__id_list.print_values(
