@@ -40,8 +40,8 @@ class Stmt():
 
         # get_token == "read"
         elif tokNo == t.Tokens.READ.value:
-            self.__read = In.In()
-            self.__read.parse()
+            self.__in = In.In()
+            self.__in.parse()
             self.__alternative = 4
 
         # get_token == "write"

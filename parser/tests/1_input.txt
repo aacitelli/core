@@ -1,0 +1,11 @@
+program
+    int X ;
+begin 
+    X = 25 ; 
+    write X ; 
+    read W , X , Y , Z ; 
+    write W ; 
+    write X ; 
+    write Y ; 
+    write Z ; 
+end

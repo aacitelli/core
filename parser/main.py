@@ -19,11 +19,11 @@ def main(argv):
     program.parse()
 
     # Recursively print parse tree out
-    print("\nPretty Printed: ")
+    print("\nprint() output: ")
     program.print()
 
     # Recursively execute parse tree
-    print("\nProgram Output: ")
+    print("\nexec() output: ")
     program.exec()
 
     # Close file

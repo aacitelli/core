@@ -80,7 +80,7 @@ class Id():
 
         # We're WTF WE SHOULDN'T BE HERE GET OUT GET OUT GET OUT
         else:
-            print("ERROR: Shouldn't get here, fix yo sh*t")
+            print("Id ERROR: Shouldn't get here!")
 
         # We return value, as that's always what we want during execution, and the actual id itself is only used when printing
         return self.__value
@@ -98,3 +98,9 @@ class Id():
             print(self.__value, end="")
         else:
             self.__id.print_value(0)
+
+    def read_in_value(self):
+        if self.__is_original:
+            self.__value = input("{}: ".format(self.__identifier))
+        else:
+            self.__id.read_in_value()

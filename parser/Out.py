@@ -8,7 +8,7 @@ class Out():
 
     def parse(self):
 
-        # `read` token
+        # `write` token
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.WRITE.value:
