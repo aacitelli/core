@@ -1,4 +1,5 @@
 import Tokenizer
+import nums_only_tokenizer
 import t # file we store globals in (i.e. the tokenizer and various enums)
 import Prog
 import sys 
@@ -18,11 +19,11 @@ def main(argv):
     program.parse()
 
     # Recursively print parse tree out
-    print("\nPretty Printed: ")
+    print("\nprint() output: ")
     program.print() 
 
     # Recursively execute parse tree 
-    print("\nProgram Output: ")
+    print("\nexec() output: ")
     program.exec()
 
     # Close file
@@ -30,6 +31,7 @@ def main(argv):
 
     # Exit 
     exit(0)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
