@@ -13,11 +13,10 @@ class Int():
             return -1
         self.__num = t.tokenizer.get_int()
         t.tokenizer.skip_token()
-        print("Int: Consumed number token.")
+        # print("Int: Consumed number token.")
 
     def exec(self):
-        return self.__num
+        return int(self.__num)
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         print(self.__num, end="")

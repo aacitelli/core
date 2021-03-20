@@ -17,7 +17,7 @@ class Loop():
             print("If: Expected token {}, got token {}".format(
                 t.Tokens.WHILE.value, tokNo))
             return -1
-        print("Loop: Consumed `while` token.")
+        # print("Loop: Consumed `while` token.")
 
         # Cond
         self.__cond = Cond.Cond()
@@ -30,7 +30,7 @@ class Loop():
             print("If: Expected token {}, got token {}".format(
                 t.Tokens.LOOP.value, tokNo))
             return -1
-        print("Loop: Consumed `loop` token.")
+        # print("Loop: Consumed `loop` token.")
 
         # StmtSeq
         self.__stmt_seq = StmtSeq.StmtSeq()
@@ -39,11 +39,11 @@ class Loop():
         # `end` token
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
-        if tokNo != t.Tokens.WHILE.value:
+        if tokNo != t.Tokens.END.value:
             print("If: Expected token {}, got token {}".format(
-                t.Tokens.WHILE.value, tokNo))
+                t.Tokens.END.value, tokNo))
             return -1
-        print("Loop: Consumed `end` token.")
+        # print("Loop: Consumed `end` token.")
 
         # `;` token
         tokNo = t.tokenizer.get_token()
@@ -52,21 +52,20 @@ class Loop():
             print("If: Expected token {}, got token {}".format(
                 t.Tokens.SEMICOLON.value, tokNo))
             return -1
-        print("Loop: Consumed `;` token.")
+        # print("Loop: Consumed `;` token.")
 
         # Successful error code
         return 0
 
     def exec(self):
         self.__cond.exec()
-        while self.__cond.value:
+        while self.__cond.get_value():
             self.__stmt_seq.exec()
-            self.__cond.exec()
+            self.__cond.exec()  # Reevaluate condition
 
     def print(self, indentation):
-        print(" " * indentation, end="")
-        print("while")
-        self.__cond.print(indentation + 4)
+        print("while ", end="")
+        self.__cond.print()
         print(" loop")
         self.__stmt_seq.print(indentation + 4)
-        print("end")
+        print(" " * indentation + "end;")

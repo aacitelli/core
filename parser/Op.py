@@ -24,9 +24,17 @@ class Op():
             self.__id.parse()
             self.__alternative = 2
         elif tokNo == t.Tokens.OPEN_PAREN.value:
+            t.tokenizer.skip_token()  # Consume open paren
             self.__exp = Exp.Exp()
             self.__exp.parse()
             self.__alternative = 3
+            tokNo = t.tokenizer.get_token()
+            t.tokenizer.skip_token()  # Consume closed parent
+            if tokNo != t.Tokens.CLOSED_PAREN.value:
+                print("If: Expected token {}, got token {}".format(
+                    t.Tokens.CLOSED_PAREN.value, tokNo))
+                return -1
+            # print("Loop: Consumed `)` token.")
         else:
             print("Op: Invalid Next Token {}!".format(tokNo))
             exit(-1)
@@ -37,17 +45,18 @@ class Op():
 
     def exec(self):
         if self.__alternative == 1:
-            return self.__int.exec()
+            return int(self.__int.exec())
         if self.__alternative == 2:
-            return self.__id.exec()
+            return int(self.__id.exec(
+                None,
+                None))  # Version of exec that will just grab us the value
         if self.__alternative == 3:
-            return self.__exp.exec()
+            return int(self.__exp.exec())
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         if self.__alternative == 1:
-            return self.__int.print(0)
+            return self.__int.print()
         if self.__alternative == 2:
-            return self.__id.print(0)
+            return self.__id.print()
         if self.__alternative == 3:
-            return self.__exp.print(0)
+            return self.__exp.print()

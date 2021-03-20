@@ -25,7 +25,7 @@ class Cond():
             self.__alternative = 2
         elif tokNo == t.Tokens.OPEN_BRACKET.value:
             t.tokenizer.skip_token()  # Consume open bracket
-            print("Comd: Consumed `[` token.")
+            # print("Comd: Consumed `[` token.")
             self.__cond1 = Cond()
             self.__cond1.parse()
             tokNo = t.tokenizer.get_token()
@@ -47,7 +47,7 @@ class Cond():
                 print("Cond: Expected token {}, got token {}".format(
                     t.Tokens.CLOSED_BRACKET.value, tokNo))
                 return -1
-            print("Cond: Consumed `]` token.")
+            # print("Cond: Consumed `]` token.")
         else:
             print("Cond: No productions are valid!")
             return -1
@@ -57,32 +57,42 @@ class Cond():
 
     def exec(self):
         if self.__alternative == 1:
-            return self.__comp.get_value()
+            self.__comp.exec()
+            self.__value = self.__comp.get_value()
+            return self.__value
         elif self.__alternative == 2:
-            return not self.__comp.get_value()
+            self.__comp.exec()
+            self.__value = not self.__comp.get_value()
+            return self.__value
         elif self.__alternative == 3:
-            return self.__cond1.get_value() and self.__cond2.get_value()  # pylint: disable=no-member
+            self.__cond1.exec()
+            self.__cond2.exec()
+            self.__value = self.__cond1.get_value() and self.__cond2.get_value(
+            )  # pylint: disable=no-member
+            return self.__value
         else:
-            return self.__cond1.get_value() or self.__cond2.get_value()  # pylint: disable=no-member
+            self.__cond1.exec()
+            self.__cond2.exec()
+            self.__value = self.__cond1.get_value() or self.__cond2.get_value()  # pylint: disable=no-member
+            return self.__value
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         if self.__alternative == 1:
-            self.__comp.print(0)
+            self.__comp.print()
         elif self.__alternative == 2:
             print("!", end="")
-            self.__comp.print(0)
+            self.__comp.print()
         elif self.__alternative == 3:
             print("[", end="")
-            self.__cond1.print(0)
+            self.__cond1.print()
             print(" && ", end="")
-            self.__cond2.print(0)
+            self.__cond2.print()
             print("]", end="")
         else:
             print("[", end="")
-            self.__cond1.print(0)
+            self.__cond1.print()
             print(" || ", end="")
-            self.__cond2.print(0)
+            self.__cond2.print()
             print("]", end="")
 
     def get_value(self):

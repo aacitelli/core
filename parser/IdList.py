@@ -18,7 +18,7 @@ class IdList():
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.COMMA.value:
             t.tokenizer.skip_token()
-            print("IdList: Consumed `,` token.")
+            # print("IdList: Consumed `,` token.")
             self.__id_list = IdList()
             self.__id_list.parse()
 
@@ -32,18 +32,16 @@ class IdList():
             output.append(self.__id_list.exec(declare))
         return output
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
-        self.__id.print(0)
+    def print(self):
+        self.__id.print()
         if self.__id_list != None:
             print(", ", end="")
-            self.__id_list.print(0)
+            self.__id_list.print()
 
-    def print_values(self, indentation):
-        print(" " * indentation, end="")
-        self.__id.print_value(0)
+    def print_values(self):
+        self.__id.print_value()
         if self.__id_list is not None:
-            self.__id_list.print_values(0)
+            self.__id_list.print_values()
         print()
 
     def input_values(self):

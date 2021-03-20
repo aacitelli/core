@@ -28,7 +28,6 @@ class DeclSeq():
             self.__decl_seq.exec()
 
     def print(self, indentation):
-        print(" " * indentation, end="")
-        self.__decl.print(0)
-        if self.__decl_seq != None:
-            self.__decl_seq.print(0)
+        self.__decl.print(indentation)
+        if self.__decl_seq is not None:
+            self.__decl_seq.print(indentation)

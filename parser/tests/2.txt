@@ -1,10 +1,11 @@
-program int ABC , D ;
+program int ABC, D ;
 
           begin read ABC ; read D ;
 
                while ( ABC != D ) loop
                                      if ( ABC > D ) then ABC = ABC - D ;
-
+                                     write ABC ; 
+                                     write D ; 
                                      else D = D - ABC ;
 
                                 end ;

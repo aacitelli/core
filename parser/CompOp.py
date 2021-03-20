@@ -10,7 +10,7 @@ class CompOp():
         # Get whatever token it is
         tokNo = t.tokenizer.get_token()
         t.tokenizer.skip_token()
-        print("Comp: Consumed token no {}.".format(tokNo))
+        # print("Comp: Consumed token no {}.".format(tokNo))
 
         if tokNo == t.Tokens.NOT_EQUALS.value:
             self.__alternative = 1
@@ -34,17 +34,16 @@ class CompOp():
     def exec(self):
         return self.__alternative
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         if self.__alternative == 1:
-            print(" != ", out="")
+            print(" != ", end="")
         if self.__alternative == 2:
-            print(" == ", out="")
+            print(" == ", end="")
         if self.__alternative == 3:
-            print(" < ", out="")
+            print(" < ", end="")
         if self.__alternative == 4:
-            print(" > ", out="")
+            print(" > ", end="")
         if self.__alternative == 5:
-            print(" <= ", out="")
+            print(" <= ", end="")
         if self.__alternative == 6:
-            print(" >= ", out="")
+            print(" >= ", end="")

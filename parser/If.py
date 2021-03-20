@@ -19,7 +19,7 @@ class If():
             print("If: Expected token {}, got token {}".format(
                 t.tokenizer.IF.value, tokNo))
             return -1
-        print("IF: Consumed `if` token.")
+        # print("IF: Consumed `if` token.")
 
         # Parse Condition
         self.__c = Cond.Cond()
@@ -30,9 +30,9 @@ class If():
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.THEN.value:
             print("If: Expected token {}, got token {}".format(
-                t.tokenizer.THEN.value, tokNo))
+                t.Tokens.THEN.value, tokNo))
             return -1
-        print("IF: Consumed `then` token.")
+        # print("IF: Consumed `then` token.")
 
         # `stmtseq` token
         self.__ss1 = StmtSeq.StmtSeq()
@@ -40,17 +40,24 @@ class If():
 
         # If we're at an "end", it means there's no `else` and that we should get out
         tokNo = t.tokenizer.get_token()
-        t.tokenizer.skip_token()
         if tokNo == t.Tokens.END.value:
+            t.tokenizer.skip_token()
+            tokNo = t.tokenizer.get_token()
+            t.tokenizer.skip_token()
+            if tokNo != t.Tokens.SEMICOLON.value:
+                print("If: Expected token {}, got token {}".format(
+                    t.Tokens.SEMICOLON.value, tokNo))
+                return -1
             self.__alternative = 1
             return 0
 
         # Otherwise, we're at an else
+        t.tokenizer.skip_token()
         if tokNo != t.Tokens.ELSE.value:
             print("If: Expected token {}, got token {}".format(
-                t.tokenizer.ELSE.value, tokNo))
+                t.Tokens.ELSE.value, tokNo))
             return -1
-        print("IF: Consumed `else` token.")
+        # print("IF: Consumed `else` token.")
 
         # `stmtseq` token
         self.__alternative = 2
@@ -62,25 +69,35 @@ class If():
         t.tokenizer.skip_token()
         if tokNo != t.Tokens.END.value:
             print("If: Expected token {}, got token {}".format(
-                t.tokenizer.END.value, tokNo))
+                t.Tokens.END.value, tokNo))
             return -1
-        print("IF: Consumed `end` token.")
+        # print("IF: Consumed `end` token.")
+
+        # ';' token
+        tokNo = t.tokenizer.get_token()
+        t.tokenizer.skip_token()
+        if tokNo != t.Tokens.SEMICOLON.value:
+            print("If: Expected token {}, got token {}".format(
+                t.tokenizer.SEMICOLON.value, tokNo))
+            return -1
+        # print("IF: Consumed `;` token.")
+
+        return 0
 
     def exec(self):
-        if self.__c.is_true:
-            return
-        if self.__alternative == 1:
+
+        self.__c.exec()
+        if self.__c.get_value():
             self.__ss1.exec()
-        else:
+        elif self.__alternative == 2:
             self.__ss2.exec()
 
     def print(self, indentation):
-        print(" " * indentation, end="")
-        print("if ")
-        self.__c.print(indentation + 4)
-        print(" then ")
+        print("if ", end="")
+        self.__c.print()
+        print(" then")
         self.__ss1.print(indentation + 4)
         if self.__alternative == 2:
-            print(" else ")
+            print(" " * indentation + " else ")
             self.__ss2.print(indentation + 4)
-        print(" end")
+        print(" " * indentation + "end;")

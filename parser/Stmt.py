@@ -34,8 +34,8 @@ class Stmt():
 
         # get_token == "while"
         elif tokNo == t.Tokens.WHILE.value:
-            self.__while = Loop.Loop()
-            self.__while.parse()
+            self.__loop = Loop.Loop()
+            self.__loop.parse()
             self.__alternative = 3
 
         # get_token == "read"
@@ -49,6 +49,9 @@ class Stmt():
             self.__out = Out.Out()
             self.__out.parse()
             self.__alternative = 5
+
+        else:
+            print("Stmt: Shouldn't have gotten here ;(")
 
         # Successful error code
         return 0
@@ -68,12 +71,12 @@ class Stmt():
     def print(self, indentation):
         print(" " * indentation, end="")
         if self.__alternative == 1:
-            self.__assign.print(0)
+            self.__assign.print()
         if self.__alternative == 2:
-            self.__if.print(0)
+            self.__if.print(indentation)
         if self.__alternative == 3:
-            self.__loop.print(0)
+            self.__loop.print(indentation)
         if self.__alternative == 4:
-            self.__in.print(0)
+            self.__in.print()
         if self.__alternative == 5:
-            self.__out.print(0)
+            self.__out.print()

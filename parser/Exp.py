@@ -18,13 +18,13 @@ class Exp():
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.PLUS.value:
             t.tokenizer.skip_token()
-            print("Exp: Consumed `+` token.")
+            # print("Exp: Consumed `+` token.")
             self.__exp = Exp()
             self.__exp.parse()
             self.__alternative = 2
         elif tokNo == t.Tokens.MINUS.value:
             t.tokenizer.skip_token()
-            print("Exp: Consumed `-` token.")
+            # print("Exp: Consumed `-` token.")
             self.__exp = Exp()
             self.__exp.parse()
             self.__alternative = 3
@@ -36,17 +36,16 @@ class Exp():
 
     def exec(self):
         if self.__alternative == 1:
-            return self.__fac.exec()
+            return int(self.__fac.exec())
         if self.__alternative == 2:
-            return self.__fac.exec() + self.__exp.exec()
-        return self.__fac.exec() - self.__exp.exec()
+            return int(self.__fac.exec()) + int(self.__exp.exec())
+        return int(self.__fac.exec()) - (self.__exp.exec())
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
-        self.__fac.print(0)
+    def print(self):
+        self.__fac.print()
         if self.__alternative == 2:
             print(" + ", end="")
-            self.__exp.print(0)
+            self.__exp.print()
         if self.__alternative == 3:
             print(" - ", end="")
-            self.__exp.print(0)
+            self.__exp.print()

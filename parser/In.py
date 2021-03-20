@@ -15,7 +15,7 @@ class In():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.READ.value, tokNo))
             return -1
-        print("In: Consumed `read` token.")
+        # print("In: Consumed `read` token.")
 
         # IdList
         self.__id_list = IdList.IdList()
@@ -28,14 +28,13 @@ class In():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.SEMICOLON.value, tokNo))
             return -1
-        print("In: Consumed `;` token.")
+        # print("In: Consumed `;` token.")
 
     # Essentially reads input and does an assign on each Id given
     def exec(self):
         self.__id_list.input_values()
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         print("read ", end="")
-        self.__id_list.print(0)
+        self.__id_list.print()
         print(";")

@@ -24,7 +24,7 @@ class Id():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.IDENTIFIER.value, tokNo))
             return -1
-        print("Id: Consumed identifier token.")
+        # print("Id: Consumed identifier token.")
 
         # Grab the current id from the tokenizer (we need the actual id name, not just the numeric token)
         identifier = t.tokenizer.get_id()
@@ -79,29 +79,24 @@ class Id():
         elif assign is not None:
             self.__value = assign
 
-        # We're WTF WE SHOULDN'T BE HERE GET OUT GET OUT GET OUT
-        else:
-            print("Id ERROR: Shouldn't get here!")
-
         # We return value, as that's always what we want during execution, and the actual id itself is only used when printing
         return self.__value
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         if self.__id is not None:
-            self.__id.print(indentation)
+            self.__id.print()
         else:
             print(self.__identifier, end="")
 
-    def print_value(self, indentation):
-        print(" " * indentation, end="")
+    def print_value(self):
         if self.__is_original:
-            print(self.__value, end="")
+            print("{} = {}".format(self.__identifier, self.__value))
         else:
-            self.__id.print_value(0)
+            self.__id.print_value()
 
     def read_in_value(self):
         if self.__is_original:
-            self.__value = input("{}: ".format(self.__identifier))
+            self.__value = input("Input a value for {}: ".format(
+                self.__identifier))
         else:
             self.__id.read_in_value()

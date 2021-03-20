@@ -18,7 +18,7 @@ class Fac():
         tokNo = t.tokenizer.get_token()
         if tokNo == t.Tokens.STAR.value:
             t.tokenizer.skip_token()
-            print("Fac: Consumed `*` token.")
+            # print("Fac: Consumed `*` token.")
             self.__fac = Fac()
             self.__fac.parse()
             self.__alternative = 2
@@ -33,9 +33,8 @@ class Fac():
             return self.__op.exec()
         return self.__op.exec() * self.__fac.exec()
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
-        self.__op.print(0)
+    def print(self):
+        self.__op.print()
         if self.__alternative == 2:
             print(" * ", end="")
-            self.__fac.print(0)
+            self.__fac.print()

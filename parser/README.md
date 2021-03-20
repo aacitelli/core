@@ -1,2 +1,7 @@
-## Notes
-1. I can't "guarantee" proper tokenizer functionality for anything except an input file that has spaces between the tokens. Specifically, I know that the sequence "&& || !=!" isn't tokenized properly. Otherwise, I think it works well, and it works on all the input files I've packaged, but for anything else you test with please put spaces between the tokens.
+## Notes to the Grader
+- Tested w/ Python 3.9.1; any version of Python3 would probably work 
+- Example run: `python main.py tests/everything.txt` 
+- Tokenizer Issues
+    - While I *think* it works properly, I don't feel confident using my tokenizer without spaces between the tokens. Please create spaces between tokens.
+    - My tokenizer doesn't handle empty lines with more than a newline on them very well (i.e. a line with just a few empty spaces). Ensure empty lines are just a newline character.
+- I've included a few test cases (already spaced out). These include the three given for the tokenizer as well as the one someone put together on Piazza that tests every case, `everything.txt`. 

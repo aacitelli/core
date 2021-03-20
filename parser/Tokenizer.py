@@ -67,7 +67,7 @@ class Tokenizer:
     def get_token(self):
 
         # If we start out not immediately on a token (due to stuff skipToken sets), we know we're at EOF
-        if not self.line:
+        if self.line == "":
             return 33
 
         # Strip our line to eliminate whitespace at the beginning
@@ -121,7 +121,7 @@ class Tokenizer:
             # If we are about to add a special character:
             # - If it's a valid number or identifier, split it there
             # - If it's not a valid number or identifier, error out
-            if char in self.specialCharacters:
+            if char in self.specialCharacters and token != "":
                 # print("Special character connected! Char: {}".format(char))
                 if self.isValidNumber(token):
                     # print("It's a number!")
@@ -172,8 +172,11 @@ class Tokenizer:
         # Existing line is empty
         if not len(self.line_after_trim):
             self.line = self.f.readline()
-            while self.line == "\n":
+            stripped_copy = self.line.strip()
+            while self.line == "\n" or (len(self.line) > 0
+                                        and len(stripped_copy) == 0):
                 self.line = self.f.readline()
+                stripped_copy = self.line.strip()
                 # print("newline: {}".format(self.line))
             # print("read in this line: \"{}\"".format(self.line))
         else:
@@ -181,7 +184,6 @@ class Tokenizer:
         # print("Line post-skipToken(): {}".format(self.line))
 
     # Returns actual value of the number currently at get_token
-    # NOTE: How I manage self.tokens is technically a memory leak but in context to our usage it will never come even close to being a problem
     def get_int(self):
         if self.get_token() != 31:
             print("ERROR: get_int called on non-integer value!")

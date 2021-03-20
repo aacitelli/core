@@ -15,7 +15,7 @@ class Out():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.WRITE.value, tokNo))
             return -1
-        print("Out: Consumed `write` token.")
+        # print("Out: Consumed `write` token.")
 
         # IdList
         self.__id_list = IdList.IdList()
@@ -28,14 +28,13 @@ class Out():
             print("Id: Expected token {}, got token {}".format(
                 t.Tokens.SEMICOLON.value, tokNo))
             return -1
-        print("Out: Consumed `;` token.")
+        # print("Out: Consumed `;` token.")
 
     def exec(self):
         self.__id_list.print_values(
-            0)  # Special print function that prints values instead of ids
+        )  # Special print function that prints values instead of ids
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         print("write ", end="")
-        self.__id_list.print(0)
+        self.__id_list.print()
         print(";")

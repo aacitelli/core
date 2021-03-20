@@ -29,7 +29,6 @@ class StmtSeq():
             self.__stmt_seq.exec()
 
     def print(self, indentation):
-        print(" " * indentation, end="")
-        self.__stmt.print(0)
+        self.__stmt.print(indentation)
         if self.__stmt_seq != None:
             self.__stmt_seq.print(indentation)

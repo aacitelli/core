@@ -22,7 +22,7 @@ class Comp():
             print("Comp: Expected token {}, got token {}".format(
                 t.Tokens.OPEN_PAREN.value, tokNo))
             return -1
-        print("Comp: Consumed `(` token.")
+        # print("Comp: Consumed `(` token.")
 
         # Op1
         self.__op1 = Op.Op()
@@ -43,7 +43,7 @@ class Comp():
             print("Comp: Expected token {}, got token {}".format(
                 t.Tokens.CLOSED_PAREN.value, tokNo))
             return -1
-        print("Comp: Consumed `)` token.")
+        # print("Comp: Consumed `)` token.")
 
         # Successful error code
         return 0
@@ -54,30 +54,23 @@ class Comp():
         op1 = self.__op1.exec()
         op2 = self.__op2.exec()
         compOp = self.__compOp.exec()
-        try:
-            if compOp == 1:
-                self.__value = op1 != op2
-            if compOp == 2:
-                self.__value = op1 == op2
-            if compOp == 3:
-                self.__value = op1 < op2
-            if compOp == 4:
-                self.__value = op1 > op2
-            if compOp == 5:
-                self.__value = op1 <= op2
-            if compOp == 6:
-                self.__value = op1 >= op2
-            raise Exception("")
-        except Exception:
-            print("Error: Invalid Comparison {} {} {}".format(
-                op1, compOp, op2))
-            return -1
-        return 0
+        if compOp == 1:
+            self.__value = op1 != op2
+        if compOp == 2:
+            self.__value = op1 == op2
+        if compOp == 3:
+            self.__value = op1 < op2
+        if compOp == 4:
+            self.__value = op1 > op2
+        if compOp == 5:
+            self.__value = op1 <= op2
+        if compOp == 6:
+            self.__value = op1 >= op2
+        return self.__value
 
-    def print(self, indentation):
-        print(" " * indentation, end="")
+    def print(self):
         print("(", end="")
-        self.__op1.print(0)
-        self.__compOp.print(0)
-        self.__op2.print(0)
+        self.__op1.print()
+        self.__compOp.print()
+        self.__op2.print()
         print(")", end="")
